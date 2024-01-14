@@ -1,9 +1,11 @@
 import './App.css';
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch, connect  } from 'react-redux'
 import { useEffect } from 'react';
 import { fetchData, prevImage, nextImage, setArtId, reset } from './features/dataSlice';
 
 const mapStateToProps = state => state.data
+
+
 
 let debounce = (func, wait) => {
   let timeout;
@@ -21,8 +23,12 @@ function App({artId}) {
   const dispatch = useDispatch()
   const data = useSelector((state) => state.data)
 
+  useEffect(() => {
+    dispatch(fetchData());
+  }, [dispatch, artId]);
+
   const renderImg = () => {
-    if(data?.apiData?.primaryImage) {
+    if(data?.apiData && data.apiData.primaryImage) {
       return <img style={{'width': '100vw'}} src={data.apiData.primaryImage} alt={data.apiData.title} />
     } else {
       return <p>image here</p>
@@ -33,9 +39,7 @@ function App({artId}) {
     dispatch(setArtId(e.target.value))
   }, 500)
 
-  useEffect(() => {
-    dispatch(fetchData());
-  }, [artId]);
+  
 
   return (
     <div className="App">
@@ -62,4 +66,4 @@ function App({artId}) {
   );
 }
 
-export default connect(mapStateToProps)App;
+export default connect(mapStateToProps)(App);

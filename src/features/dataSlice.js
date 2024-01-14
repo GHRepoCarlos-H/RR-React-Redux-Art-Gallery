@@ -38,10 +38,10 @@ export const fetchData = () => {
         const { artId } = data;
         const response = await fetch(getAPIUrl(artId));
         const json = await response.json();
-        dispatch(loadData(json))
+        dispatch(loadData(json));
 
     }
-    return dataThunk
+    return dataThunk;
 }
 
 export const {

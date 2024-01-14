@@ -4,7 +4,7 @@ export const logger = store => next => action => {
     } else{
         console.log('dispatch', store.getState())
         next(action)
-        console.log('afer dispatch', store.getState())
+        console.log('after dispatch', store.getState())
     }
     
 }
